@@ -42,8 +42,8 @@ public class MarcaDAOPostgreSql implements IMarcaDAO{
         try {
             String consulta = "Update marca set nombremarca = ? where codigomarca= ?";
             PreparedStatement sentencia = gestorJDBC.prepararSentencia(consulta);
-            sentencia.setInt(1, marca.getCodigo());
-            sentencia.setString(2, marca.getNombre());
+            sentencia.setString(1, marca.getNombre());
+            sentencia.setInt(2, marca.getCodigo());
             sentencia.executeUpdate();
         } catch (Exception e) {
             System.err.println(e.getMessage());

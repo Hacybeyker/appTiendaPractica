@@ -32,9 +32,12 @@ public class FormRegistrarMarca extends javax.swing.JDialog {
         super(dialogo, true);
         initComponents();
         this.marca = marca;
+        mostrarmarca(marca);
     }
     
-    
+    public void mostrarmarca(Marca marca){
+        textoNombre.setText(marca.getNombre());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,7 +119,17 @@ public class FormRegistrarMarca extends javax.swing.JDialog {
                 textoNombre.requestFocus();
             }
         }else{
-            //MODIFICAR
+            if(!textoNombre.getText().trim().isEmpty()){
+                try{
+                    marca.setNombre(textoNombre.getText().trim().toLowerCase());
+                    GestionarMarcaServicio gestionarMarcaServicio = new GestionarMarcaServicio();
+                    gestionarMarcaServicio.modificar(marca);
+                    JOptionPane.showMessageDialog(this, "Marca Modificada Exitosamente");
+                    this.dispose();
+                }catch(Exception e){
+                    
+                }
+            }
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
     

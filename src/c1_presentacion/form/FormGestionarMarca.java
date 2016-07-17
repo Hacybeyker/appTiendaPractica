@@ -85,15 +85,29 @@ public class FormGestionarMarca extends javax.swing.JDialog {
         }
     }
     
-    public Marca buscarPorCodigo(int codigo){
-        Marca marca = new Marca();
-        try {
-            GestionarMarcaServicio gestionarMarcaServicio = new GestionarMarcaServicio();
-            marca = gestionarMarcaServicio.buscarPorCodigo(codigo);
-        } catch (Exception e) {
+    public Marca buscarPorCodigo(){
+        Marca marca = null;
+        int fila = obtenerNumeroFila();
+        if(fila>=0){           
+            try {
+                int codigo = obtenerCodigoFila(fila);
+                GestionarMarcaServicio gestionarMarcaServicio = new GestionarMarcaServicio();
+                marca = gestionarMarcaServicio.buscarPorCodigo(codigo);
+            } catch (Exception e) {
+            }
         }
         return marca;
     }
+    
+    public int obtenerNumeroFila(){
+        return tablaMarca.getSelectedRow();
+    }
+    
+    public int obtenerCodigoFila(int numeroFila){
+        ModeloTabla modeloTabla = (ModeloTabla)this.tablaMarca.getModel();
+        return (Integer)modeloTabla.getValueAt(numeroFila, 0);
+    }
+    
     
     
     
@@ -237,6 +251,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
 
     private void botonACModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonACModificarActionPerformed
         // TODO add your handling code here:
+        new FormRegistrarMarca(this, buscarPorCodigo()).setVisible(true);
         buscarMarcas();
     }//GEN-LAST:event_botonACModificarActionPerformed
 
